@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "a93b0ace-dbe0-4cee-8f54-a7e506ae9331",
+		"name": "UniversityApis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Listing of Countries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/countries/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"countries",
+						""
+					]
+				},
+				"description": "This Api is the GET api for listing of countries.Use these country codes while creation and updation of universities."
+			},
+			"response": []
+		},
+		{
+			"name": "University Create Api",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "VESIT",
+							"description": "Name of the University (Required)",
+							"type": "text"
+						},
+						{
+							"key": "domain",
+							"value": "ves.ac.in",
+							"description": "Domain of the University (Required)",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "IN",
+							"description": "Country of the University(Required) [should be a country code]",
+							"type": "text"
+						},
+						{
+							"key": "web_page",
+							"value": "https://ves.ac.in/vesit/",
+							"description": "Web page link of the University (Required)",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/universities/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"universities",
+						""
+					]
+				},
+				"description": "This Api is a POST api for creation of a university.All field descriptions are given in the postman itself."
+			},
+			"response": []
+		},
+		{
+			"name": "University List Api",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/universities?page=1&page_size=10&ordering=-createdAt&domain=.edu&country=In&search=v",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"universities"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"description": "Page number"
+						},
+						{
+							"key": "page_size",
+							"value": "10",
+							"description": "No of objects on a single page (Optional, Default = 10)"
+						},
+						{
+							"key": "ordering",
+							"value": "-createdAt",
+							"description": "Ordering by fields (createdAt,name)  (Optional, Default = -createdAt [Descending createdAt)"
+						},
+						{
+							"key": "domain",
+							"value": ".edu",
+							"description": "Filtering by domain (Optional)  [case insensitive  last part of domain]"
+						},
+						{
+							"key": "country",
+							"value": "In",
+							"description": "Filtering by country code/name (Optional)  [case insensitive exactname of country code]"
+						},
+						{
+							"key": "search",
+							"value": "v",
+							"description": "Search text (name)"
+						}
+					]
+				},
+				"description": "This Api is the GET api for listing of universities.This api provides features like pagination,filtering and search.The description of all the fields is given in the body of the postman itself."
+			},
+			"response": []
+		},
+		{
+			"name": "University Retrieve Api",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{host}}/universities/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"universities",
+						"1"
+					]
+				},
+				"description": "This Api is a GET api for retrieval of a university.All field descriptions are given in the postman itself."
+			},
+			"response": []
+		},
+		{
+			"name": "University Update Api",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "VESIT",
+							"description": "Name of the University (Required)",
+							"type": "text"
+						},
+						{
+							"key": "domain",
+							"value": "ves.ac.in",
+							"description": "Domain of the University (Required)",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "IN",
+							"description": "Country of the University(Required) [should be a country code]",
+							"type": "text"
+						},
+						{
+							"key": "web_page",
+							"value": "https://ves.ac.in/vesit/",
+							"description": "Web page link of the University (Required)",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/universities/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"universities",
+						"1"
+					]
+				},
+				"description": "This Api is a PUT api for updation of a university.All field descriptions are given in the postman itself."
+			},
+			"response": []
+		},
+		{
+			"name": "University Delete Api",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"description": "JWT Access Token",
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{host}}/universities/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"universities",
+						"1"
+					]
+				},
+				"description": "This Api is a DELETE api for soft deletion of a university.All field descriptions are given in the postman itself."
+			},
+			"response": []
+		},
+		{
+			"name": "University Search Api",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/universities/search?page=1&page_size=10&ordering=-createdAt&domain=.EDU&country=in&search=vj",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"universities",
+						"search"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"description": "Page number"
+						},
+						{
+							"key": "page_size",
+							"value": "10",
+							"description": "No of objects on a single page (Optional, Default = 10)"
+						},
+						{
+							"key": "ordering",
+							"value": "-createdAt",
+							"description": "Ordering by fields (createdAt,name)  (Optional, Default = -createdAt [Descending createdAt)"
+						},
+						{
+							"key": "domain",
+							"value": ".EDU",
+							"description": "Filtering by domain (Optional)  [case insensitive  last part of domain]"
+						},
+						{
+							"key": "country",
+							"value": "in",
+							"description": "Filtering by country code/name (Optional)  [case insensitive exactname of country code]"
+						},
+						{
+							"key": "search",
+							"value": "vj",
+							"description": "Search text (name)"
+						}
+					]
+				},
+				"description": "This Api is the GET api for Searching of universities.This api provides features like pagination,filtering and search.The description of all the fields is given in the body of the postman itself."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

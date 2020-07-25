@@ -1,0 +1,14 @@
+{
+	"id": "354652ea-c2d2-497b-a24b-8cf5c8d179e0",
+	"name": "UniversityEnvironment",
+	"values": [
+		{
+			"key": "host",
+			"value": "https://university-apis-sahil-diwan.herokuapp.com",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-07-25T18:08:01.121Z",
+	"_postman_exported_using": "Postman/7.29.1"
+}

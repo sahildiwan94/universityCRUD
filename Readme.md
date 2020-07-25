@@ -16,7 +16,7 @@
 - ### Cloning the Github Repository
 	 Clone the github repository by running the following command:
 	 
-		git clone https://github.com/sahildiwan94/university.git
+		git clone https://github.com/sahildiwan94/universityCRUD.git
 
  - ### Creating and Activating a Virtual Environment
 	 Create a new Virtual Environment by running the following command:
@@ -258,5 +258,5 @@ University Apis Application consists of the following 7 Apis:
 			]
 		 }
 
-* **Please refer to the postman collection of these Apis for testing which is located in `university_apis/docs/university_apis.json`**
+* **Please refer to the postman collection of these Apis for testing which is located in `docs/university_apis.json`**
 

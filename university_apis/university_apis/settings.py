@@ -135,12 +135,23 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#Elastic Search
+
+# Elastic Search Configuration on Heroku
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'localhost:9200'
-    },
+        'hosts': "e01c9b7d3efd4174935bd1b343ade376.ap-southeast-1.aws.found.io:9243",
+        'http_auth': 'elastic:bFPZZJYVnwupKNTOC943Tq2D',
+        'scheme':"https"
+    }
 }
+
+# Elastic Search Configuration on Local
+# ELASTICSEARCH_DSL = {
+#     'default': {
+#         'hosts': "localhost:9200",
+#     }
+# }
+
 
 # Activate Django-Heroku
 django_heroku.settings(locals())

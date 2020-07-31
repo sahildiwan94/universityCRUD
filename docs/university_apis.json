@@ -34,13 +34,13 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "VESIT",
+							"value": "IIM-B",
 							"description": "Name of the University (Required)",
 							"type": "text"
 						},
 						{
 							"key": "domain",
-							"value": "ves.ac.in",
+							"value": "IIM-B.edu",
 							"description": "Domain of the University (Required)",
 							"type": "text"
 						},
@@ -52,7 +52,7 @@
 						},
 						{
 							"key": "web_page",
-							"value": "https://ves.ac.in/vesit/",
+							"value": "https://IIM-B.com",
 							"description": "Web page link of the University (Required)",
 							"type": "text"
 						}
@@ -81,7 +81,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/universities?page=1&page_size=10&ordering=-createdAt&domain=.edu&country=In&search=v",
+					"raw": "{{host}}/universities?page=1&page_size=10&ordering=-createdAt&domain=.edu&country=In",
 					"host": [
 						"{{host}}"
 					],
@@ -116,8 +116,9 @@
 						},
 						{
 							"key": "search",
-							"value": "v",
-							"description": "Search text (name)"
+							"value": "vJ",
+							"description": "Search text (name)",
+							"disabled": true
 						}
 					]
 				},
@@ -161,13 +162,13 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "VESIT",
+							"value": "IIT-C",
 							"description": "Name of the University (Required)",
 							"type": "text"
 						},
 						{
 							"key": "domain",
-							"value": "ves.ac.in",
+							"value": "IIT-C.ac.in",
 							"description": "Domain of the University (Required)",
 							"type": "text"
 						},
@@ -179,7 +180,7 @@
 						},
 						{
 							"key": "web_page",
-							"value": "https://ves.ac.in/vesit/",
+							"value": "https://IIT-C.ac.in/IIT-C/",
 							"description": "Web page link of the University (Required)",
 							"type": "text"
 						}
@@ -238,7 +239,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/universities/search?page=1&page_size=10&ordering=-createdAt&domain=.EDU&country=in&search=vj",
+					"raw": "{{host}}/universities/search?page=1&page_size=10&ordering=-createdAt&country=IN&domain__endswith=.edu&name__contains=IIM",
 					"host": [
 						"{{host}}"
 					],
@@ -263,23 +264,23 @@
 							"description": "Ordering by fields (createdAt,name)  (Optional, Default = -createdAt [Descending createdAt)"
 						},
 						{
-							"key": "domain",
-							"value": ".EDU",
-							"description": "Filtering by domain (Optional)  [case insensitive  last part of domain]"
-						},
-						{
 							"key": "country",
-							"value": "in",
+							"value": "IN",
 							"description": "Filtering by country code/name (Optional)  [case insensitive exactname of country code]"
 						},
 						{
-							"key": "search",
-							"value": "vj",
-							"description": "Search text (name)"
+							"key": "domain__endswith",
+							"value": ".edu",
+							"description": "Filtering by domain name (Optional)  [case insensitive end part of domain/full domain name]"
+						},
+						{
+							"key": "name__contains",
+							"value": "IIM",
+							"description": "Search text (name) [case insensitive partial/full search]"
 						}
 					]
 				},
-				"description": "This Api is the GET api for Searching of universities.This api provides features like pagination,filtering and search.The description of all the fields is given in the body of the postman itself."
+				"description": "This Api is the GET api for Elastic Searching of universities.This api provides features like pagination,filtering and search.The description of all the fields is given in the body of the postman itself."
 			},
 			"response": []
 		}

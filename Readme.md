@@ -75,6 +75,17 @@
 Run the following command from the root directory:
 	 
 	python3 manage.py runserver 0.0.0.0:8000(port number)
+## Elasticsearch setup
+	
+Run the following command to start the elasticsearch server:
+	 
+	sudo service elasticsearch start
+	
+Run the following command to create indexes and populate the existing data in elasticsearch:
+	 
+	python3 manage.py search_index --rebuild -f
+
+	
 
 
 ## Api Documentation
@@ -227,7 +238,7 @@ University Apis Application consists of the following 7 Apis:
 7.  ###  University Search
 	 **Url** : host/universities/search
 	**Type** : GET
-	 **Description** : This is a GET Api to search/filter universities.
+	 **Description** : This is a GET Api to search/filter universities(Elastic Search).
 	 **Query Params** : 
 	 
 		 page: 1 (Page no,if not given all objects will be listed.)
@@ -235,9 +246,9 @@ University Apis Application consists of the following 7 Apis:
 		 ordering: IN (Ordering can take the following values(createdAt,-createdAt,name,-name
 			       default=-createdAt(latest entry on top),
 			       '--)
-		 domain: .edu (Filter by end part of  domain)
-		 country: IN (Filter by country code)
-		 search: v (Search by university name)
+		 domain__endswith: .edu (Filter by end part of  domain/full domain [Case Insensitive] )
+		 country: IN (Filter by country code [Case Insensitive] )
+		 name__contains: v (Partial/Full Search by university name [Case Insensitive] )
 
 			 
 	 **Response** : 
@@ -259,4 +270,5 @@ University Apis Application consists of the following 7 Apis:
 		 }
 
 * **Please refer to the postman collection of these Apis for testing which is located in `docs/university_apis.json`**
+
 

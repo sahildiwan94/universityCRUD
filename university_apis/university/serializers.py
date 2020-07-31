@@ -2,7 +2,9 @@ from rest_framework import serializers
 from .models import University
 import dateutil.parser
 from datetime import time
+from .documents import UniversityDocument
 import validators
+from django_elasticsearch_dsl_drf.serializers import DocumentSerializer
 
 
 class UniversitySerializer(serializers.ModelSerializer):
@@ -62,3 +64,23 @@ class UniversitySerializer(serializers.ModelSerializer):
 		instance.save()
 
 		return instance
+
+
+class UniversityDocumentSerializer(DocumentSerializer):
+	"""Serializer for University document."""
+
+	class Meta(object):
+		"""Meta options."""
+		document = UniversityDocument
+		fields = ('id','name','domain','web_page','country','createdAt')
+
+	# Representation of serialized data
+	def to_representation(self, instance):
+
+		obj = super().to_representation(instance)
+
+		obj['createdAt'] = str(dateutil.parser.parse(obj['createdAt']).date()) + " " + time.strftime(dateutil.parser.parse(obj['createdAt']).time(),"%H:%M")
+		obj['alpha_two_code'] = instance.country.code
+		obj['country'] = instance.country.name
+
+		return obj

@@ -1,13 +1,24 @@
 from django.shortcuts import render
 from rest_framework import generics
 from .models import University
-from .serializers import UniversitySerializer
+from .serializers import UniversitySerializer,UniversityDocumentSerializer
 from django.http import JsonResponse
 from django.db import transaction
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from .filters import UniversityFilter
+from .pagination import StandardResultsSetPagination
+from .documents import UniversityDocument
 from django_countries import countries
+from django_elasticsearch_dsl_drf.filter_backends import (
+	FilteringFilterBackend,
+	OrderingFilterBackend,
+	DefaultOrderingFilterBackend
+)
+from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
+from django_elasticsearch_dsl_drf.constants import (
+	LOOKUP_QUERY_ENDSWITH,LOOKUP_QUERY_CONTAINS
+)
 
 class UniversityCreateList(generics.ListCreateAPIView):
 	"""
@@ -200,19 +211,57 @@ class CountryList(generics.ListAPIView):
 		return JsonResponse(response, status = 200)
 
 
-class UniversitySearch(generics.ListAPIView):
-	"""
-	View for Searching and Filtering of Universities with Pagination.
-	"""
+class UniversitySearch(BaseDocumentViewSet):
+	"""The University Search view."""
 
-	# Queryset,Filter backends,Filterset class,Ordering Fields,Default ordering,Search fields,Serializer class
-	queryset = University.objects.filter(isDelete=False)
-	filter_backends = [DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
-	filterset_class = UniversityFilter
-	search_fields = ['name']
-	ordering_fields = ['name','createdAt']
-	ordering = ['-createdAt']
-	serializer_class = UniversitySerializer
+	# Specify Documemt,Serializer,Lookup field and Filter backends
+	document = UniversityDocument
+	serializer_class = UniversityDocumentSerializer
+	lookup_field = 'id'
+	filter_backends = [
+		FilteringFilterBackend,
+		OrderingFilterBackend,
+		DefaultOrderingFilterBackend,
+	]
+
+	# Define filtering fields and Partial Search/Full Search fields
+	filter_fields = {
+	'domain': {
+		'field': 'domain.raw',
+		'lookups': [
+			LOOKUP_QUERY_ENDSWITH,
+		],
+	},
+	'country': 'country.code.raw',
+
+	# Partial Search/Full Search by name
+	'name': {
+		'field': 'name.raw',
+		'lookups': [
+			LOOKUP_QUERY_CONTAINS,
+		],
+	},
+	}
+
+	# Define ordering fields
+	ordering_fields = {
+		'createdAt': 'createdAt',
+		'name': 'name.raw',
+	}
+
+	# Specify default ordering
+	ordering = ('-createdAt',)
+
+	# Specify Pagination Class
+	pagination_class = StandardResultsSetPagination
+
+	# Specify Queryset
+	def get_queryset(self):
+
+		queryset = self.search.query()
+		queryset.model = self.document.Django.model
+		queryset = queryset.filter('term', isDelete=False)
+		return queryset
 
 	def list(self,request,*args,**kwargs):
 		"""
